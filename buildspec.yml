@@ -24,10 +24,7 @@ phases:
       - docker push $REPOSITORY_URI
       - echo Writing image definitions file...
       - docker images
-      - printf '[{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME_DEV $REPOSITORY_URI:latest > ./imagedefinitions-dev.json
-      - printf '[{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME_QA $REPOSITORY_URI:latest > ./imagedefinitions-qa.json
-      - cat ./imagedefinitions-dev.json
-      - cat ./imagedefinitions-qa.json
+      - printf '[{"name":"%s","imageUri":"%s"},{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME_DEV $REPOSITORY_URI:latest $CONTAINER_NAME_QA $REPOSITORY_URI:latest > ./imagedefinitions.json
+      - cat ./imagedefinitions.json
 artifacts:
-    files: imagedefinitions-dev.json
-    files: imagedefinitions-qa.json
+    files: imagedefinitions.json
