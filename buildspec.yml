@@ -26,7 +26,8 @@ phases:
       - docker images
       - printf '[{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME_DEV $REPOSITORY_URI:latest > ./imagedefinitions-dev.json
       - printf '[{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME_QA $REPOSITORY_URI:latest > ./imagedefinitions-qa.json
-      - cat ./imagedefinitions.json
+      - cat ./imagedefinitions-dev.json
+      - cat ./imagedefinitions-qa.json
 artifacts:
     files: imagedefinitions-dev.json
     files: imagedefinitions-qa.json
