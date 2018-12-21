@@ -1,0 +1,30 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Running maven build $environment
+      - which docker
+      - which java
+      - mvn --version
+      - docker images
+      - aws --version
+      - echo Logging in to Amazon ECR....
+      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+      - IMAGE_NAME="sti/stdigital_bank"
+  build:
+    commands:
+      - echo Build started on `date`
+      - mvn clean package dockerfile:build
+      - docker tag $IMAGE_NAME:latest $REPOSITORY_URI 
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker images...
+      - docker push $REPOSITORY_URI
+      - echo Writing image definitions file...
+      - docker images
+      - printf '[{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME $REPOSITORY_URI:latest > ../imagedefinitions.json
+      - cat ../imagedefinitions.json
+artifacts:
+    files: imagedefinitions.json

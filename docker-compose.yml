@@ -1,0 +1,8 @@
+version: '2'
+services:
+  stdigital_bank_service:
+    container_name: web
+    build: .
+    image: aws/codebuild
+    ports:
+      - "8080:8080"
