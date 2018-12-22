@@ -10,7 +10,7 @@ public class ApplicationController {
 
     @RequestMapping(value="/", method = RequestMethod.GET, produces ="application/hal+json")
     public String sayHello() {
-    	String response = "Code Build Test 1222 1354";
+    	String response = "Code Build Test 1222 1412";
         return response;
     }
 
