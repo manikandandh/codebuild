@@ -17,7 +17,7 @@ phases:
     commands:
       - echo Build started on `date`
       - mvn clean package dockerfile:build
-      - docker tag $IMAGE_NAME:latest $REPOSITORY_URI 
+      - docker tag $IMAGE_NAME:latest $REPOSITORY_URI:$CODE_VERSION
   post_build:
     commands:
       - echo Build completed on `date`
