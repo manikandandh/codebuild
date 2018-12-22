@@ -12,6 +12,7 @@ phases:
       - echo Logging in to Amazon ECR....
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - IMAGE_NAME="aws/codebuild"
+      - CODE_VERSION = "1.0"
   build:
     commands:
       - echo Build started on `date`
@@ -24,8 +25,8 @@ phases:
       - docker push $REPOSITORY_URI
       - echo Writing image definitions file...
       - docker images
-      - printf '[{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME_DEV $REPOSITORY_URI:latest > ./imagedefinitions-dev.json
-      - printf '[{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME_QA $REPOSITORY_URI:latest > ./imagedefinitions-qa.json
+      - printf '[{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME_DEV $REPOSITORY_URI:$CODE_VERSION > ./imagedefinitions-dev.json
+      - printf '[{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME_QA $REPOSITORY_URI:$CODE_VERSION > ./imagedefinitions-qa.json
       - cat ./imagedefinitions-dev.json
       - cat ./imagedefinitions-qa.json
 artifacts:
