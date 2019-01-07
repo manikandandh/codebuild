@@ -5,12 +5,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 public class ApplicationController {
 
     @RequestMapping(value="/", method = RequestMethod.GET, produces ="application/hal+json")
     public String sayHello() {
-    	String response = "Code Build Test Version TEST";
+    	String response = "Code Build Test Version";
         return response;
     }
 
